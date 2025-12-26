@@ -1,3 +1,2 @@
 import "./styles.css";
-
-console.log("Javascript Works!");
+import "./listLogic.js";
