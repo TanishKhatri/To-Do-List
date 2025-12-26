@@ -4,7 +4,7 @@
 }
 
 :root {
-  --mynerve: "Mynerve", cursive;
+  --engle: "Englebert", cursive;
   --light-gray: #e2e2e2;
   --pastel-red: #ff7070;
   --pastel-green: #a1ffb0;
@@ -38,14 +38,14 @@ body {
   padding: 12px 25px;
 }
 
-.sidebar h1 {
-  font-family: var(--mynerve);
-  font-size: 2.9rem;
+.logoHeader {
+  font-family: var(--engle);
+  font-size: 2rem;
 }
 
-.sidebar h2 {
-  font-family: var(--mynerve);
-  font-size: 2.2rem;
+.projectsHeader{
+  font-family: var(--engle);
+  font-size: 2.5rem;
   margin-top: 80px;
 }
 
@@ -88,4 +88,89 @@ body {
 
 .content {
   flex: 6;
+}
+
+.contentH1 {
+  font-family: var(--engle);
+  font-size: 2.5rem;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 50px;
+  padding-right: 80px;
+  align-items: center;
+  position: sticky;
+}
+
+.contentButtons {
+  display: flex;
+  gap: 25px;
+}
+
+.contentButtons button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.contentButtons .addToDo {
+  background-color: var(--pastel-cyan);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-family: var(--trebuchet);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.contentButtons button:hover svg,.contentButtons button:hover svg path {
+  fill: rgb(255, 191, 0);
+}
+
+.toDoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.toDo.priority2 {
+  background-color: var(--pastel-red);
+}
+
+.toDo.priority1 {
+  background-color: var(--pastel-yellow);
+}
+
+.toDo.priority0 {
+  background-color: var(--pastel-green);
+}
+
+.toDoTask {
+  font-weight: bold;
+}
+
+.toDo {
+  display: flex;
+  padding: 25px 40px;
+  margin: 0px 50px;
+  margin-right: 80px;
+  border-radius: 10px;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  font-family: var(--trebuchet);
+}
+.toDoFlexContainer {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.toDoRightSide {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
