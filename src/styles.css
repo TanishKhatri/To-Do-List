@@ -46,7 +46,6 @@ body {
 .projectsHeader{
   font-family: var(--engle);
   font-size: 2.5rem;
-  margin-top: 80px;
 }
 
 .sidebar footer {
@@ -179,4 +178,27 @@ body {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+.projectHeaderContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.addAProject {
+  border: none;
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.addAProject:hover svg path {
+  stroke: rgb(255, 191, 0);
+}
+
+.projectContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
 }
