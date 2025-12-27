@@ -1,24 +1,26 @@
 "use strict";
 import {format, formatISO, parseISO, compareAsc, compareDesc} from "date-fns";
 
-class toDoListItem {
+class ToDoListItem {
   itemId;
   itemName;
   completionStatus;
-  constructor(itemName) {
+  constructor({itemId = crypto.randomUUID(), itemName, completionStatus = false}) {
     this.itemName = itemName;
-    this.completionStatus = false;
-    this.itemId = crypto.randomUUID();
-    saveToLocalStorage();
+    this.completionStatus = completionStatus;
+    this.itemId = itemId;
   }
 
   toggleCompletionStatus() {
     this.completionStatus = !this.completionStatus;
-    saveToLocalStorage();
+  }
+
+  static fromJSON(obj) {
+    return new ToDoListItem(obj);
   }
 }
 
-class toDo {
+class ToDo {
   toDoId;
   toDoTitle;
   toDoDescription;
@@ -27,55 +29,78 @@ class toDo {
   toDoList;
   priority;
 
-  constructor(toDoTitle, toDoDescription, dueDate, priority) {
-    this.toDoId = crypto.randomUUID();
+  constructor({
+    toDoId = crypto.randomUUID(),
+    toDoTitle,
+    toDoDescription,
+    completionStatus = false,
+    dueDate,
+    toDoList = [],
+    priority
+  }) {
+    this.toDoId = toDoId;
     this.toDoTitle = toDoTitle;
     this.toDoDescription = toDoDescription;
-    this.completionStatus = false;
+    this.completionStatus = completionStatus;
     this.dueDate = dueDate;
-    this.toDoList = [];
+    this.toDoList = toDoList.map(ToDoListItem.fromJSON);
     this.priority = priority;
-    saveToLocalStorage();
   }
 
   toggleCompletionStatus() {
     this.completionStatus = !this.completionStatus;
-    saveToLocalStorage();
   }
 
   addListItem(itemName) {
-    this.toDoList.push(new toDoListItem(itemName));
-    saveToLocalStorage();
+    this.toDoList.push(new ToDoListItem({itemName}));
+  }
+
+  static fromJSON(obj) {
+    return new ToDo(obj);
   }
 }
 
-class project {
+class Project {
   projectId;
   projectName;
   toDos;
 
-  constructor(projectName) {
-    this.projectId = crypto.randomUUID();
+  constructor({projectId = crypto.randomUUID(), projectName, toDos = []}) {
+    this.projectId = projectId;
     this.projectName = projectName;
-    this.toDos = [];
-    saveToLocalStorage();
+    this.toDos = toDos.map(ToDo.fromJSON);
   }
 
   addToDo(toDoTitle, toDoDescription, dueDate, priority) {
-    this.toDos.push(new toDo(toDoTitle, toDoDescription, dueDate, priority));
-    saveToLocalStorage();
+    this.toDos.push(new ToDo({toDoTitle, toDoDescription, dueDate, priority}));
+  }
+
+  static fromJSON(obj) {
+    return new Project(obj);
   }
 }
 
-const userObject = {
-  projects: [], 
-  addProject: function(projectName) {
-    this.projects.push(new project(projectName));
+class UserObject {
+  projects;
+  
+  constructor({projects = []} = {}) {
+    this.projects = projects.map(Project.fromJSON);
+  }
+
+  addProject(projectName) {
+    this.projects.push(new Project({projectName}));
+    this.saveToLocalStorage();
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem("userObject", JSON.stringify(this));
+  }
+
+  static fromJSON(object) {
+    return new UserObject(object);
   }
 }
 
-function saveToLocalStorage() {
-  localStorage.setItem("userObject", JSON.stringify(userObject));
-}
+let userObject = new UserObject();
 
 export {userObject};
