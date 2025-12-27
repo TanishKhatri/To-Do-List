@@ -1,4 +1,4 @@
-* {
+*:not(dialog) {
   margin: 0;
   padding: 0;
 }
@@ -58,6 +58,10 @@ body {
 .sidebar footer a {
   display: flex;
   align-items: center;
+}
+
+.projects:empty {
+  display: none;
 }
 
 .projects {
@@ -201,4 +205,49 @@ body {
   display: flex;
   flex-direction: column;
   margin-top: 80px;
+}
+
+.noProjectSelected {
+  align-self: center;
+}
+
+h2.noProjects {
+  align-self: center;
+  font-family: var(--engle);
+  font-size: 2.5rem;
+}
+
+.toDoContainer.noProjectsInContainer {
+  justify-content: center;
+}
+
+.addProjectDialogForm {
+  display: flex;
+  gap: 23px;
+}
+
+.projectDialogFlexContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.projectFormLabel {
+  font-family: var(--engle);
+  font-size: 1.1rem;
+}
+
+.addProjectSubmitButton {
+  font-family: var(--trebuchet);
+}
+
+.closeButtonProject {
+  align-self: flex-start;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+.addProjectDialog {
+  background-color: var(--pastel-cyan);
 }
