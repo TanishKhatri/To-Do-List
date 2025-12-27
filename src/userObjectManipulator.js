@@ -83,7 +83,7 @@ class Project {
 class UserObject {
   projects;
   
-  constructor({projects = []} = {}) {
+  constructor({projects = []}) {
     this.projects = projects.map(Project.fromJSON);
   }
 
