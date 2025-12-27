@@ -1,5 +1,4 @@
 "use strict";
-import {format, formatISO, parseISO, compareAsc, compareDesc} from "date-fns";
 
 class ToDoListItem {
   itemId;
@@ -13,6 +12,7 @@ class ToDoListItem {
 
   toggleCompletionStatus() {
     this.completionStatus = !this.completionStatus;
+    userObject.saveToLocalStorage();
   }
 
   static fromJSON(obj) {
@@ -49,10 +49,12 @@ class ToDo {
 
   toggleCompletionStatus() {
     this.completionStatus = !this.completionStatus;
+    userObject.saveToLocalStorage();
   }
 
   addListItem(itemName) {
     this.toDoList.push(new ToDoListItem({itemName}));
+    userObject.saveToLocalStorage();
   }
 
   static fromJSON(obj) {
@@ -73,6 +75,7 @@ class Project {
 
   addToDo(toDoTitle, toDoDescription, dueDate, priority) {
     this.toDos.push(new ToDo({toDoTitle, toDoDescription, dueDate, priority}));
+    userObject.saveToLocalStorage();
   }
 
   static fromJSON(obj) {
@@ -83,7 +86,7 @@ class Project {
 class UserObject {
   projects;
   
-  constructor({projects = []}) {
+  constructor({projects = []} = {}) {
     this.projects = projects.map(Project.fromJSON);
   }
 
@@ -102,5 +105,14 @@ class UserObject {
 }
 
 let userObject = new UserObject();
+
+function copyFromStorage() {
+  userObject = UserObject.fromJSON(JSON.parse(localStorage.getItem("userObject")));
+}
+
+if (localStorage.getItem("userObject")) {
+  copyFromStorage();
+  console.log({...userObject});
+}
 
 export {userObject};
