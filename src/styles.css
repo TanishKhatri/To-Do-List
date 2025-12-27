@@ -87,6 +87,8 @@ body {
   background-color: inherit;
   font-family: var(--trebuchet);
   padding: 5px 5px;
+  cursor: pointer;
+  text-align: left;
 }
 
 .content {
@@ -250,4 +252,15 @@ h2.noProjects {
 
 .addProjectDialog {
   background-color: var(--pastel-cyan);
+}
+
+.showIfNoToDos.hidden {
+  display: none;
+}
+
+.showIfNoToDos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
