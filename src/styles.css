@@ -264,3 +264,7 @@ h2.noProjects {
   align-items: center;
   justify-content: center;
 }
+
+.contentHeader.noProjectsInContainer {
+  display: none;  
+}
