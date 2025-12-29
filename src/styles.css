@@ -29,6 +29,7 @@ h1 {
 .priorityCircles * {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .highlightedCircle{
@@ -148,6 +149,13 @@ body {
   font-family: var(--trebuchet);
   font-size: 1.2rem;
   font-weight: bold;
+  border: 2px solid black;
+
+}
+
+.addToDo:hover {
+  background-color: #3b5f56;
+  color: white;
 }
 
 .contentButtons button:hover svg,.contentButtons button:hover svg path {
@@ -385,6 +393,48 @@ h2.noProjects {
   cursor: pointer;
 }
 
+.projectDeleteButton:hover {
+  background-color: rgb(93, 0, 0);
+}
+
 .contentHeader.noProjectsInContainer {
   display: none;  
+}
+
+.addToDoForm {
+  display: flex;
+  gap: 20px;
+}
+
+.addToDoCloseButton {
+  border: none;
+  background: inherit;
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.addToDoCloseButton:hover svg {
+ fill: rgb(255, 191, 0);
+}
+
+.addListItem, .addToDoSubmitButton {
+  border-radius: 5px;
+  padding: 3px 8px;
+  cursor: pointer;
+  background-color: black;
+  border: none;
+  color: white;
+}
+
+.addToDoDialog {
+  background-color: #ebfffb;
+}
+
+.addListItem:hover, .addToDoSubmitButton:hover {
+  background-color: var(--dark-gray);
+}
+
+.addToDoSubmitButton {
+  margin-top: 20px;
+  width: 100%;
 }
