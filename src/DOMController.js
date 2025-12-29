@@ -16,6 +16,7 @@ function projectDialogEventListeners() {
   submitButton.addEventListener("click", () => {
     userObject.addProject(input.value);
     addProjectsToDisplay();
+    input.value = "";
     projectDialog.close();
   });
 }
