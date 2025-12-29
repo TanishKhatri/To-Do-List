@@ -288,6 +288,9 @@ function toDoDialogEventListeners() {
     const title = document.querySelector("#titleInput");
     const description = document.querySelector("#descriptionInput");
     const dueDate = document.querySelector("#dueDateInput");
+    if (dueDate.value === "") {
+      dueDate.value = format(new Date(), "yyyy-MM-dd'T'HH:mm");
+    }
     const listItemList = document.querySelectorAll(".listItemInput");
     const priority = returnPriorityNumber();
     

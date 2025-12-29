@@ -217,7 +217,7 @@ body {
   cursor: pointer;
 }
 
-.listItemsContainer {
+.listItems {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -417,6 +417,9 @@ h2.noProjects {
  fill: rgb(255, 191, 0);
 }
 
+.addListItem {
+  align-self: flex-start;
+}
 .addListItem, .addToDoSubmitButton {
   border-radius: 5px;
   padding: 3px 8px;
