@@ -219,6 +219,17 @@ function toDoDialogEventListeners() {
   const closeButton = document.querySelector(".addToDoCloseButton");
   const submitButton = document.querySelector(".addToDoSubmitButton");
   const addListItemButton = document.querySelector(".addListItem");
+  
+  const priorityCircles = document.querySelector(".priorityCircles");
+  let childrenArray = [...priorityCircles.children];
+  childrenArray.forEach((circle) => {
+    circle.addEventListener("click", () => {
+      childrenArray.forEach((child) => {
+        child.classList.remove("highlightedCircle");
+      });
+      circle.classList.add("highlightedCircle");
+    });
+  });
 
   addListItemButton.addEventListener("click", () => {
     const newInput = document.createElement("input");
@@ -239,9 +250,23 @@ function toDoDialogEventListeners() {
     const description = document.querySelector("#descriptionInput");
     const dueDate = document.querySelector("#dueDateInput");
     const listItemList = document.querySelectorAll(".listItemInput");
-    const priority = document.querySelector("#priorityInput");
+    const priority = returnPriorityNumber();
+    
+    function returnPriorityNumber() {
+      const redCircle = document.querySelector(".redCircle");
+      const yellowCircle = document.querySelector(".yellowCircle");
+      const greenCircle = document.querySelector(".greenCircle");
 
-    project.addToDo(title.value, description.value, dueDate.value, priority.value);
+      if (redCircle.classList.contains("highlightedCircle")) {
+        return 2;
+      } else if (yellowCircle.classList.contains("highlightedCircle")) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+
+    project.addToDo(title.value, description.value, dueDate.value, priority);
     const currToDo = project.toDos[project.toDos.length - 1];
     listItemList.forEach((item) => {
       currToDo.addListItem(item.value);

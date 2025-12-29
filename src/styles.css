@@ -21,6 +21,21 @@ h1 {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+.priorityCircles {
+  display: flex;
+  gap: 8px;
+}
+
+.priorityCircles * {
+  display: flex;
+  align-items: center;
+}
+
+.highlightedCircle{
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
 body {
   margin: 0;
   display: flex;
