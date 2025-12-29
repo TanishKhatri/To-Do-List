@@ -27,6 +27,7 @@ body {
   min-height: 100vh;
   flex-direction: row;
   overflow: hidden;
+  font-family: var(--trebuchet);
 }
 
 .sidebar {
@@ -166,12 +167,61 @@ body {
 .toDo {
   display: flex;
   padding: 25px 40px;
-  margin: 0px 50px;
-  margin-right: 80px;
   border-radius: 10px;
   justify-content: space-between;
   font-size: 1.4rem;
   font-family: var(--trebuchet);
+}
+
+.belowToDo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.belowListItemDiv {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.toggleSwitchSvgDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listItemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.toDo.priority2+.belowToDo {
+  border: 5px solid var(--pastel-red);
+}
+
+.toDo.priority1+.belowToDo {
+  border: 5px solid var(--pastel-yellow);
+}
+
+.toDo.priority0+.belowToDo {
+  border: 5px solid var(--pastel-green);
+}
+
+.toDoContainerWithDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0px 50px;
+  margin-right: 80px;
+}
+
+.descriptionTag {
+  font-family: var(--trebuchet);
+  font-size: 1.9rem;
 }
 
 .toDoFlexContainer {
@@ -189,6 +239,31 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.itemDivFlexContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toDoDeleteButton {
+  align-self: flex-end;
+  border: none;
+  border: 3px solid black;
+  padding: 5px 10px;
+  border-radius: 9999px;
+}
+
+.toDo.priority2+.belowToDo .toDoDeleteButton {
+  background-color: var(--pastel-red);
+}
+
+.toDo.priority1+.belowToDo .toDoDeleteButton {
+  background-color: var(--pastel-yellow);
+}
+
+.toDo.priority0+.belowToDo .toDoDeleteButton {
+  background-color: var(--pastel-green);
 }
 
 .addAProject {
