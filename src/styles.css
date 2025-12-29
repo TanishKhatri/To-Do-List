@@ -206,6 +206,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .listItemsContainer {
@@ -370,6 +371,18 @@ h2.noProjects {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.projectDeleteButton {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  border: 2px solid black;
+  background-color: var(--red);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 9999px;
+  cursor: pointer;
 }
 
 .contentHeader.noProjectsInContainer {

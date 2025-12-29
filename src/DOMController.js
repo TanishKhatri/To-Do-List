@@ -94,12 +94,11 @@ function loadProjectInContentDiv(projectId) {
       tickBoxContainer.innerHTML = tickBoxEmptySVG;
     }
     tickBoxContainer.addEventListener("click", () => {
+      td.toggleCompletionStatus();
       if (td.completionStatus) {
         tickBoxContainer.innerHTML = tickBoxFilledSVG;
-        td.toggleCompletionStatus();
       } else {
         tickBoxContainer.innerHTML = tickBoxEmptySVG;
-        td.toggleCompletionStatus();
       }
     });
 
@@ -210,7 +209,33 @@ function loadProjectInContentDiv(projectId) {
     toDoContainerWithDescription.appendChild(toDoDiv);
     toDoContainerWithDescription.appendChild(belowToDo);
     toDoContainer.appendChild(toDoContainerWithDescription);
+
   });
+  
+  const projectDeleteButton = document.createElement("button");
+  projectDeleteButton.classList.add("projectDeleteButton");
+  projectDeleteButton.textContent = "Delete Project";
+  projectDeleteButton.addEventListener("click", () => {
+    userObject.deleteProject(project.projectId);
+    const sidebarProjects = document.querySelectorAll(".projectButton");
+    sidebarProjects.forEach((p) => {
+      if (p.dataset.projectId === project.projectId) {
+        p.remove();
+      }
+    })
+    returnNoProjectsSelected();
+  });
+
+  toDoContainer.appendChild(projectDeleteButton);
+}
+
+function returnNoProjectsSelected() {
+  const contentHeader = document.querySelector(".contentHeader");
+  const toDoContainer = document.querySelector(".toDoContainer");
+  const showIfNoToDos = document.querySelector(".showIfNoToDos");
+  contentHeader.classList.add("noProjectsInContainer");
+  toDoContainer.classList.add("noProjectsInContainer");
+  showIfNoToDos.classList.remove("hidden");
 }
 
 function toDoDialogEventListeners() {
@@ -219,18 +244,27 @@ function toDoDialogEventListeners() {
   const closeButton = document.querySelector(".addToDoCloseButton");
   const submitButton = document.querySelector(".addToDoSubmitButton");
   const addListItemButton = document.querySelector(".addListItem");
-  
   const priorityCircles = document.querySelector(".priorityCircles");
-  let childrenArray = [...priorityCircles.children];
-  childrenArray.forEach((circle) => {
-    circle.addEventListener("click", () => {
-      childrenArray.forEach((child) => {
-        child.classList.remove("highlightedCircle");
+    let childrenArray = [...priorityCircles.children];
+    childrenArray.forEach((circle) => {
+      circle.addEventListener("click", () => {
+        childrenArray.forEach((child) => {
+          child.classList.remove("highlightedCircle");
+        });
+        circle.classList.add("highlightedCircle");
       });
-      circle.classList.add("highlightedCircle");
-    });
   });
 
+  function resetPriority() {
+    const redCircle = document.querySelector(".redCircle");
+    redCircle.classList.add("highlightedCircle");
+    const yellowCircle = document.querySelector(".yellowCircle");
+    yellowCircle.classList.remove("highlightedCircle");
+    const greenCircle = document.querySelector(".greenCircle");
+    greenCircle.classList.remove("highlightedCircle");
+  }
+
+  resetPriority();
   addListItemButton.addEventListener("click", () => {
     const newInput = document.createElement("input");
     newInput.classList.add("listItemInput");
@@ -255,7 +289,6 @@ function toDoDialogEventListeners() {
     function returnPriorityNumber() {
       const redCircle = document.querySelector(".redCircle");
       const yellowCircle = document.querySelector(".yellowCircle");
-      const greenCircle = document.querySelector(".greenCircle");
 
       if (redCircle.classList.contains("highlightedCircle")) {
         return 2;
@@ -273,6 +306,15 @@ function toDoDialogEventListeners() {
     });
 
     loadProjectInContentDiv(project.projectId);
+
+    title.value = "";
+    description.value = "";
+    dueDate.value = "";
+    const allListItems = document.querySelectorAll(".listItemInput");
+    allListItems.forEach((item) => {
+      item.remove();
+    });
+    resetPriority();
   });
 
   closeButton.addEventListener("click", () => {
