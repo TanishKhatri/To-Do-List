@@ -241,6 +241,11 @@ body {
   gap: 10px;
 }
 
+.toDoTickBox {
+  display: flex;
+  align-items: center;
+}
+
 .itemDivFlexContainer {
   display: flex;
   justify-content: space-between;

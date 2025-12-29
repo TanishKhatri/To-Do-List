@@ -83,7 +83,26 @@ function loadProjectInContentDiv(projectId) {
 
     const flexContainer = document.createElement("div");
     flexContainer.classList.add("toDoFlexContainer");
-    flexContainer.innerHTML = `<svg width="30" height="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione-monotone" preserveAspectRatio="xMidYMid meet" fill="#000000"><circle cx="50" cy="50" r="40" fill="white" /></svg>`;
+    const tickBoxEmptySVG =  `<svg fill="#000000" width="30" height="30" viewBox="0 0 24 24" id="check-circle" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle id="primary" cx="12" cy="12" r="10" style="fill: #ffffff;"></circle></g></svg>`;
+    const tickBoxFilledSVG = `<svg fill="#000000" width="30" height="30" viewBox="0 0 24 24" id="check-circle" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle id="primary" cx="12" cy="12" r="10" style="fill: #ffffff;"></circle><path id="secondary" d="M11,16a1,1,0,0,1-.71-.29l-3-3a1,1,0,1,1,1.42-1.42L11,13.59l4.29-4.3a1,1,0,0,1,1.42,1.42l-5,5A1,1,0,0,1,11,16Z" style="fill: #000000;"></path></g></svg>`
+    const tickBoxContainer = document.createElement("div");
+    tickBoxContainer.classList.add("toDoTickBox");
+    flexContainer.appendChild(tickBoxContainer);
+    if (td.completionStatus) {
+      tickBoxContainer.innerHTML = tickBoxFilledSVG;
+    } else {
+      tickBoxContainer.innerHTML = tickBoxEmptySVG;
+    }
+    tickBoxContainer.addEventListener("click", () => {
+      if (td.completionStatus) {
+        tickBoxContainer.innerHTML = tickBoxFilledSVG;
+        td.toggleCompletionStatus();
+      } else {
+        tickBoxContainer.innerHTML = tickBoxEmptySVG;
+        td.toggleCompletionStatus();
+      }
+    });
+
     const toDoTask = document.createElement("p");
     toDoTask.classList.add("toDoTask");
     toDoTask.textContent = td.toDoTitle;
