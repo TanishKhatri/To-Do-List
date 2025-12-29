@@ -1,4 +1,4 @@
-import { add } from "date-fns";
+import { parseISO, format } from "date-fns";
 import { userObject } from "./userObjectManipulator";
 
 addProjectsToDisplay();
@@ -92,13 +92,74 @@ function loadProjectInContentDiv(projectId) {
     toDoRightSide.classList.add("toDoRightSide");
     const dueDateDiv = document.createElement("div");
     dueDateDiv.classList.add("dueDate");
-    dueDateDiv.textContent = td.dueDate;
+    const date = parseISO(td.dueDate);
+    dueDateDiv.textContent = format(date, "h:mm a, do MMMM yyyy");
     toDoRightSide.appendChild(dueDateDiv);
     toDoRightSide.innerHTML += `<svg fill="#000000" width="25" height="25" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>dropdown</title> <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path> </g></svg>`;
     toDoDiv.appendChild(toDoRightSide);
     toDoDiv.dataset.projectId = project.projectId;
-    toDoDiv.dataset.toDoId =  td.toDoId;
+    toDoDiv.dataset.toDoId = td.toDoId;
 
+    function createBelowToDo(){
+      const belowToDo = document.createElement("div");
+      belowToDo.classList.add("belowToDo");
+
+      const descriptionTag = document.createElement("h2");
+      descriptionTag.classList.add("descriptionTag");
+      descriptionTag.textContent = "Description";
+      belowToDo.appendChild(descriptionTag);
+
+      const descriptionContent = document.createElement("p");
+      descriptionContent.classList.add("descriptionContent");
+      descriptionContent.textContent = td.toDoDescription;
+      belowToDo.appendChild(descriptionContent);
+
+      const belowItemList = document.createElement("div");
+      belowItemList.classList.add("belowItemList");
+
+      const toggleOffSVG = `<svg fill="#000000" height="30px" width="30px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect id="Icons" x="-64" y="-320" width="1280" height="800" style="fill:none;"></rect> <g id="Icons1" serif:id="Icons"> <g id="Strike"> </g> <g id="H1"> </g> <g id="H2"> </g> <g id="H3"> </g> <g id="list-ul"> </g> <g id="hamburger-1"> </g> <g id="hamburger-2"> </g> <g id="list-ol"> </g> <g id="list-task"> </g> <g id="trash"> </g> <g id="vertical-menu"> </g> <g id="horizontal-menu"> </g> <g id="sidebar-2"> </g> <g id="Pen"> </g> <g id="Pen1" serif:id="Pen"> </g> <g id="clock"> </g> <g id="external-link"> </g> <g id="hr"> </g> <g id="info"> </g> <g id="warning"> </g> <g id="plus-circle"> </g> <g id="minus-circle"> </g> <g id="vue"> </g> <g id="cog"> </g> <g id="logo"> </g> <g id="radio-check"> </g> <g id="eye-slash"> </g> <g id="eye"> </g> <g id="toggle-off"> <path d="M41.309,17.112c9.416,0.179 17.545,10.374 13.732,20.395c-2.105,5.532 -7.689,9.487 -13.732,9.602c-6.201,0.04 -12.402,0.04 -18.603,0c-9.653,-0.183 -17.944,-11.153 -13.383,-21.233c2.32,-5.128 7.685,-8.656 13.383,-8.764c6.201,-0.04 12.402,-0.04 18.603,0Zm-18.398,3.998c-7.151,0.046 -13.348,8.061 -9.944,15.586c1.694,3.744 5.614,6.334 9.789,6.413c6.168,0.039 12.335,0.039 18.503,0c6.934,-0.131 12.825,-7.661 10.043,-14.973c-1.54,-4.049 -5.615,-6.941 -10.044,-7.025c-6.115,-0.039 -12.231,-0.001 -18.347,-0.001Z" style="fill-rule:nonzero;"></path> <circle cx="41.117" cy="32.11" r="10.015"></circle> </g> <g id="shredder"> </g> <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g> <g id="react"> </g> <g id="check-selected"> </g> <g id="turn-off"> </g> <g id="code-block"> </g> <g id="user"> </g> <g id="coffee-bean"> </g> <g id="coffee-beans"> <g id="coffee-bean1" serif:id="coffee-bean"> </g> </g> <g id="coffee-bean-filled"> </g> <g id="coffee-beans-filled"> <g id="coffee-bean2" serif:id="coffee-bean"> </g> </g> <g id="clipboard"> </g> <g id="clipboard-paste"> </g> <g id="clipboard-copy"> </g> <g id="Layer1"> </g> </g> </g></svg>`
+      const toggleOnSVG = `<svg fill="#000000" height="30px" width="30px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect id="Icons" x="0" y="-320" width="1280" height="800" style="fill:none;"></rect> <g id="Icons1" serif:id="Icons"> <g id="Strike"> </g> <g id="H1"> </g> <g id="H2"> </g> <g id="H3"> </g> <g id="list-ul"> </g> <g id="hamburger-1"> </g> <g id="hamburger-2"> </g> <g id="list-ol"> </g> <g id="list-task"> </g> <g id="trash"> </g> <g id="vertical-menu"> </g> <g id="horizontal-menu"> </g> <g id="sidebar-2"> </g> <g id="Pen"> </g> <g id="Pen1" serif:id="Pen"> </g> <g id="clock"> </g> <g id="external-link"> </g> <g id="hr"> </g> <g id="info"> </g> <g id="warning"> </g> <g id="plus-circle"> </g> <g id="minus-circle"> </g> <g id="vue"> </g> <g id="cog"> </g> <g id="logo"> </g> <g id="radio-check"> </g> <g id="eye-slash"> </g> <g id="eye"> </g> <path id="toggle-on" d="M25.022,17.099c2.715,-0.012 12.015,0.058 13.952,0c22.08,-0.662 22.961,30.643 0,30.023c-3.488,0.015 -12.792,-0.064 -13.952,0c-10.359,0.572 -17.04,-6.822 -16.997,-15.272c0.042,-8.451 7.53,-15.72 16.997,-14.751Zm7.882,15.011c0.143,-5.363 -4.664,-10.096 -10.015,-10.015c-7.31,0.111 -10.482,6.7 -10.016,10.947c0.625,5.691 5.193,9.06 10.016,9.084c5.536,0.026 9.862,-4.308 10.015,-10.016Z" style="fill-rule:nonzero;"></path> <g id="toggle-off"> </g> <g id="shredder"> </g> <g id="spinner--loading--dots-" serif:id="spinner [loading, dots]"> </g> <g id="react"> </g> <g id="check-selected"> </g> <g id="turn-off"> </g> <g id="code-block"> </g> <g id="user"> </g> <g id="coffee-bean"> </g> <g id="coffee-beans"> <g id="coffee-bean1" serif:id="coffee-bean"> </g> </g> <g id="coffee-bean-filled"> </g> <g id="coffee-beans-filled"> <g id="coffee-bean2" serif:id="coffee-bean"> </g> </g> <g id="clipboard"> </g> <g id="clipboard-paste"> </g> <g id="clipboard-copy"> </g> <g id="Layer1"> </g> </g> </g></svg>`
+      
+      const itemDivFlexContainer = document.createElement("div");
+      td.toDoList.forEach((item) => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("belowListItemDiv");
+        itemDiv.dataset.itemId = item.itemId;
+
+        const svgContainer = document.createElement("div");
+        svgContainer.innerHTML = toggleOffSVG;
+        itemDiv.appendChild(svgContainer);
+        
+        svgContainer.addEventListener("click", () => {
+          if (svgContainer.innerHTML === toggleOffSVG) {
+            svgContainer.innerHTML = toggleOnSVG;
+          } else {
+            svgContainer.innerHTML = toggleOffSVG;
+          }
+          item.toggleCompletionStatus();
+        });
+
+        const itemContent = document.createElement("p");
+        itemContent.classList.add("belowListItemContent");
+        itemContent.textContent  = item.itemName;
+        itemDiv.appendChild(itemContent);
+
+        itemDivFlexContainer.appendChild(itemDiv);
+      });
+
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete List";
+      deleteButton.classList.add("toDoDeleteButton");
+      deleteButton.addEventListener("click", () => {
+        project.deleteToDo(toDoDiv.dataset.toDoId);
+        loadProjectInContentDiv(project.projectId);
+      });
+
+      itemDivFlexContainer.appendChild(deleteButton);
+      belowToDo.appendChild(itemDivFlexContainer);
+      toDoDiv.appendChild(belowToDo);
+    }
+    createBelowToDo();
     toDoContainer.appendChild(toDoDiv);
   });
 }

@@ -57,6 +57,11 @@ class ToDo {
     userObject.saveToLocalStorage();
   }
 
+  deleteItem(itemId) {
+    this.toDoList.splice(this.toDoList.findIndex((item) => itemId === item.itemId), 1);
+    userObject.saveToLocalStorage();
+  }
+
   static fromJSON(obj) {
     return new ToDo(obj);
   }
@@ -78,6 +83,11 @@ class Project {
     userObject.saveToLocalStorage();
   }
 
+  deleteToDo(toDoId) {
+    this.toDos.splice(this.toDos.findIndex((toDo) => toDoId === toDo.toDoId), 1);
+    userObject.saveToLocalStorage();
+  }
+
   static fromJSON(obj) {
     return new Project(obj);
   }
@@ -92,6 +102,11 @@ class UserObject {
 
   addProject(projectName) {
     this.projects.push(new Project({projectName}));
+    this.saveToLocalStorage();
+  }
+
+  deleteProject(projectId) {
+    this.projects.splice(this.projects.findIndex((project) => projectId === project.projectId), 1);
     this.saveToLocalStorage();
   }
 
