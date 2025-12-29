@@ -116,15 +116,32 @@ function loadProjectInContentDiv(projectId) {
     const date = parseISO(td.dueDate);
     dueDateDiv.textContent = format(date, "h:mm a, do MMMM yyyy");
     toDoRightSide.appendChild(dueDateDiv);
-    toDoRightSide.innerHTML += `<svg fill="#000000" width="25" height="25" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>dropdown</title> <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path> </g></svg>`;
+
+    const dropDownSVG = `<svg fill="#000000" width="25" height="25" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>dropdown</title> <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path> </g></svg>`;
+    const dropdownUpSVG = `<svg fill="#000000" width="25" height="25" viewBox="-6.5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" transform="matrix(1, 0, 0, -1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>dropdown</title> <path d="M18.813 11.406l-7.906 9.906c-0.75 0.906-1.906 0.906-2.625 0l-7.906-9.906c-0.75-0.938-0.375-1.656 0.781-1.656h16.875c1.188 0 1.531 0.719 0.781 1.656z"></path> </g></svg>`;
+    const dropdownContainer = document.createElement("div");
+    dropdownContainer.classList.add("dropDownContainer");
+    dropdownContainer.innerHTML = dropDownSVG;
+
+    dropdownContainer.addEventListener("click", () => {
+      if (dropdownContainer.innerHTML === dropDownSVG) {
+        dropdownContainer.innerHTML = dropdownUpSVG;
+        belowToDo.classList.remove("hidden");
+      } else {
+        dropdownContainer.innerHTML = dropDownSVG;
+        belowToDo.classList.add("hidden");
+      }
+    }); 
+
+    toDoRightSide.appendChild(dropdownContainer);
+
     toDoDiv.appendChild(toDoRightSide);
     toDoDiv.dataset.projectId = project.projectId;
     toDoDiv.dataset.toDoId = td.toDoId;
 
     const belowToDo = document.createElement("div");
     function createBelowToDo(){
-      belowToDo.classList.add("belowToDo");
-
+      belowToDo.classList.add("belowToDo", "hidden");
       const descriptionTag = document.createElement("h2");
       descriptionTag.classList.add("descriptionTag");
       descriptionTag.textContent = "Description";

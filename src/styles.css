@@ -233,7 +233,7 @@ body {
 .toDoRightSide {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 25px;
 }
 .projectHeaderContainer {
   display: flex;
@@ -244,6 +244,7 @@ body {
 .toDoTickBox {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .itemDivFlexContainer {
@@ -257,6 +258,7 @@ body {
   border: 3px solid black;
   padding: 5px 10px;
   border-radius: 9999px;
+  cursor: pointer;
 }
 
 .toDo.priority2+.belowToDo .toDoDeleteButton {
@@ -269,6 +271,16 @@ body {
 
 .toDo.priority0+.belowToDo .toDoDeleteButton {
   background-color: var(--pastel-green);
+}
+
+.belowToDo.hidden {
+  display: none;
+}
+
+.dropDownContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .addAProject {
